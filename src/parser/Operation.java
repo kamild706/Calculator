@@ -1,6 +1,6 @@
 package parser;
 
-public abstract class Operation extends Expression {
+public abstract class Operation implements Expression {
 
     public abstract String getOperator();
 }

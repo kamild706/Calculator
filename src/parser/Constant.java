@@ -1,11 +1,11 @@
 package parser;
 
 import lexer.Token;
-import visitor.Visitor;
+import notation.Notation;
 
 import java.math.BigDecimal;
 
-public class Constant extends Expression {
+public class Constant implements Expression {
 
     private BigDecimal value;
 
@@ -17,8 +17,9 @@ public class Constant extends Expression {
         this.value = new BigDecimal(token.getValue());
     }
 
-    public String apply(Visitor visitor) {
-        return visitor.visit(this);
+    @Override
+    public String toNotation(Notation notation) {
+        return notation.parse(this);
     }
 
     @Override

@@ -11,23 +11,19 @@ public class Lexer {
     private static final char LEFT_PARENTHESIS = '(';
     private static final char RIGHT_PARENTHESIS = ')';
 
-    private char[] text;
+    private char[] input;
     private Character currentChar;
-    private int pos;
+    private int index;
 
-    public Lexer(String aText) {
-        text = aText.toCharArray();
-        pos = 0;
-        currentChar = text[pos];
+    public Lexer(String input) {
+        this.input = input.toCharArray();
+        index = 0;
+        currentChar = this.input[index];
     }
 
     private void advance() {
-        pos++;
-        if (pos > text.length - 1) {
-            currentChar = null;
-        } else {
-            currentChar = text[pos];
-        }
+        index++;
+        currentChar = index < input.length ? input[index] : null;
     }
 
     private void skipWhitespace() {
@@ -51,12 +47,14 @@ public class Lexer {
                     isDecimalSeparatorFound = true;
                 }
             } else {
-                if (sb.charAt(sb.length() - 1) == DECIMAL_SEPARATOR) {
-                    throw new InvalidCharacterException(currentChar);
-                }
                 break;
             }
             advance();
+        }
+
+        String number = sb.toString();
+        if (number.endsWith(String.valueOf(DECIMAL_SEPARATOR))) {
+            throw new InvalidCharacterException(DECIMAL_SEPARATOR);
         }
 
         return sb.toString();

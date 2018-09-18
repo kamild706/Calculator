@@ -1,6 +1,6 @@
 package parser;
 
-import visitor.Visitor;
+import notation.Notation;
 
 
 public abstract class BinaryOperation extends Operation {
@@ -22,8 +22,8 @@ public abstract class BinaryOperation extends Operation {
     }
 
     @Override
-    public String apply(Visitor visitor) {
-        return visitor.visit(this);
+    public String toNotation(Notation notation) {
+        return notation.parse(this);
     }
 
     @Override

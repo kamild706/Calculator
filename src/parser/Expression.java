@@ -1,11 +1,12 @@
 package parser;
 
-import visitor.Visitable;
+import notation.Notation;
 
 import java.math.BigDecimal;
 
-public abstract class Expression implements Visitable {
+public interface Expression {
 
-    public abstract String toPostfixNotation();
-    public abstract BigDecimal evaluate();
+    String toPostfixNotation();
+    BigDecimal evaluate();
+    String toNotation(Notation notation);
 }

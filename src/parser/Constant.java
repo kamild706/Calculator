@@ -27,7 +27,7 @@ public class Constant extends Expression {
     }
 
     @Override
-    public BigDecimal calc() {
+    public BigDecimal evaluate() {
         return value;
     }
 }

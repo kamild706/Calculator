@@ -16,8 +16,7 @@ public abstract class BinaryOperation extends Operation {
         return right;
     }
 
-    public BinaryOperation(String operator, Expression leftOperand, Expression rightOperand) {
-        super(operator);
+    public BinaryOperation(Expression leftOperand, Expression rightOperand) {
         left = leftOperand;
         right = rightOperand;
     }

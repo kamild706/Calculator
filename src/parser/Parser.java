@@ -14,15 +14,12 @@ public class Parser {
         currentToken = lexer.getNextToken();
     }
 
-    private void syntaxError() {
-        throw new Error("Syntax error");
-    }
 
     private void consume(TokenType type) {
         if (currentToken.getType() == type) {
             currentToken = lexer.getNextToken();
         } else {
-            syntaxError();
+            throw new SyntaxException(currentToken.getValue());
         }
     }
 
@@ -37,8 +34,7 @@ public class Parser {
             consume(TokenType.RIGHT_PARENTHESIS);
             return node;
         }
-        syntaxError();
-        return null;
+        throw new SyntaxException(currentToken.getValue());
     }
 
     private Expression power() {
@@ -46,17 +42,17 @@ public class Parser {
             consume(TokenType.MINUS);
             Expression node = power();
             while (currentToken.getType() == TokenType.POW) {
-                Token token = currentToken;
+//                Token token = currentToken;
                 consume(TokenType.POW);
-                node = new Power(node, token, power());
+                node = new Power(node, power());
             }
             return new Negation(node);
         } else {
             Expression node = factor();
             while (currentToken.getType() == TokenType.POW) {
-                Token token = currentToken;
+//                Token token = currentToken;
                 consume(TokenType.POW);
-                node = new Power(node, token, power());
+                node = new Power(node, power());
             }
             return node;
         }
@@ -69,9 +65,9 @@ public class Parser {
             Token token = currentToken;
             consume(currentToken.getType());
             if (token.getType() == TokenType.TIMES) {
-                node = new Product(node, token, power());
+                node = new Product(node, power());
             } else {
-                node = new Quotient(node, token, power());
+                node = new Quotient(node, power());
             }
         }
 
@@ -85,9 +81,9 @@ public class Parser {
             Token token = currentToken;
             consume(currentToken.getType());
             if (token.getType() == TokenType.PLUS) {
-                node = new Sum(node, token, term());
+                node = new Sum(node, term());
             } else {
-                node = new Difference(node, token, term());
+                node = new Difference(node, term());
             }
         }
 
@@ -97,7 +93,7 @@ public class Parser {
     public Expression parse() {
         Expression node = expression();
         if (currentToken.getType() != TokenType.EOI) {
-            syntaxError();
+            throw new SyntaxException(currentToken.getValue());
         }
         return node;
     }

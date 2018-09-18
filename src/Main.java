@@ -1,6 +1,5 @@
 import lexer.Lexer;
 import parser.*;
-import visitor.PostfixNotationVisitor;
 
 import java.util.Scanner;
 
@@ -16,7 +15,7 @@ public class Main {
             Expression expr = parser.parse();
 //            System.out.println(expr.apply(new PostfixNotationVisitor()));
 //            System.out.println(expr.toPostfixNotation());
-            System.out.println(expr.calc());
+            System.out.println(expr.evaluate());
         }
     }
 }

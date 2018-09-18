@@ -1,18 +1,20 @@
 package parser;
 
-
-import lexer.Token;
-
 import java.math.BigDecimal;
 
 public class Difference extends BinaryOperation {
 
-    public Difference(Expression leftOperand, Token token, Expression rightOperand) {
-        super(token.getValue(), leftOperand, rightOperand);
+    public Difference(Expression leftOperand, Expression rightOperand) {
+        super(leftOperand, rightOperand);
     }
 
     @Override
-    public BigDecimal calc() {
-        return getLeftOperand().calc().subtract(getRightOperand().calc());
+    public BigDecimal evaluate() {
+        return getLeftOperand().evaluate().subtract(getRightOperand().evaluate());
+    }
+
+    @Override
+    public String getOperator() {
+        return "-";
     }
 }

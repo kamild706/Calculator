@@ -21,10 +21,6 @@ public class Lexer {
         currentChar = text[pos];
     }
 
-    private void characterError(char aChar) {
-        throw new Error("Invalid character: " + aChar);
-    }
-
     private void advance() {
         pos++;
         if (pos > text.length - 1) {
@@ -49,12 +45,15 @@ public class Lexer {
                 sb.append(currentChar);
             } else if (currentChar.equals(DECIMAL_SEPARATOR)) {
                 if (isDecimalSeparatorFound) {
-                    characterError(currentChar);
+                    throw new InvalidCharacterException(currentChar);
                 } else {
                     sb.append(currentChar);
                     isDecimalSeparatorFound = true;
                 }
             } else {
+                if (sb.charAt(sb.length() - 1) == DECIMAL_SEPARATOR) {
+                    throw new InvalidCharacterException(currentChar);
+                }
                 break;
             }
             advance();
@@ -101,7 +100,7 @@ public class Lexer {
                 return token;
             }
 
-            characterError(currentChar);
+            throw new InvalidCharacterException(currentChar);
         }
         return new Token(TokenType.EOI, null);
     }

@@ -10,8 +10,7 @@ public abstract class UnaryOperation extends Operation {
         return operand;
     }
 
-    public UnaryOperation(Expression operand, String operator) {
-        super(operator);
+    public UnaryOperation(Expression operand) {
         this.operand = operand;
     }
 

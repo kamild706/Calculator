@@ -1,18 +1,20 @@
 package parser;
 
-
-import lexer.Token;
-
 import java.math.BigDecimal;
 
 public class Product extends BinaryOperation {
 
-    public Product(Expression leftOperand, Token token, Expression rightOperand) {
-        super(token.getValue(), leftOperand, rightOperand);
+    public Product(Expression leftOperand, Expression rightOperand) {
+        super(leftOperand, rightOperand);
     }
 
     @Override
-    public BigDecimal calc() {
-        return getLeftOperand().calc().multiply(getRightOperand().calc());
+    public BigDecimal evaluate() {
+        return getLeftOperand().evaluate().multiply(getRightOperand().evaluate());
+    }
+
+    @Override
+    public String getOperator() {
+        return "*";
     }
 }

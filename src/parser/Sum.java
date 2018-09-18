@@ -1,18 +1,20 @@
 package parser;
 
-
-import lexer.Token;
-
 import java.math.BigDecimal;
 
 public class Sum extends BinaryOperation {
 
-    public Sum(Expression leftOperand, Token token, Expression rightOperand) {
-        super(token.getValue(), leftOperand, rightOperand);
+    public Sum(Expression leftOperand, Expression rightOperand) {
+        super(leftOperand, rightOperand);
     }
 
     @Override
-    public BigDecimal calc() {
-        return getLeftOperand().calc().add(getRightOperand().calc());
+    public BigDecimal evaluate() {
+        return getLeftOperand().evaluate().add(getRightOperand().evaluate());
+    }
+
+    @Override
+    public String getOperator() {
+        return "+";
     }
 }

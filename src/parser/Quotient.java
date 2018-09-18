@@ -1,19 +1,21 @@
 package parser;
 
-
-import lexer.Token;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class Quotient extends BinaryOperation {
 
-    public Quotient(Expression leftOperand, Token token, Expression rightOperand) {
-        super(token.getValue(), leftOperand, rightOperand);
+    public Quotient(Expression leftOperand, Expression rightOperand) {
+        super(leftOperand, rightOperand);
     }
 
     @Override
-    public BigDecimal calc() {
-        return getLeftOperand().calc().divide(getRightOperand().calc(), RoundingMode.CEILING);
+    public BigDecimal evaluate() {
+        return getLeftOperand().evaluate().divide(getRightOperand().evaluate(), 3, RoundingMode.HALF_EVEN);
+    }
+
+    @Override
+    public String getOperator() {
+        return "/";
     }
 }

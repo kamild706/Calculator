@@ -14,7 +14,6 @@ public class Parser {
         currentToken = lexer.getNextToken();
     }
 
-
     private void consume(TokenType type) {
         if (currentToken.getType() == type) {
             currentToken = lexer.getNextToken();
